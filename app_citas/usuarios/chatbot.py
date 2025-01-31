@@ -2,7 +2,7 @@ from openai import OpenAI
 
 # Inicializa el cliente OpenAI una vez para evitar inicializarlo en cada llamada
 client = OpenAI(
-    api_key="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"
+    api_key=""
 )
 
 
@@ -10,7 +10,7 @@ def handle_thread(client, message_content, thread_id=None):
     """
     Maneja la lógica de creación de un thread y procesamiento de mensajes.
     """
-    assistant_id = "asst_0NXHt3Rxeu2QUqU6ZcMSVQZP"
+    assistant_id = ""
 
     # Crear thread si no se proporciona el thread_id
     if not thread_id:
