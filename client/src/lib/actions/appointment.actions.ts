@@ -114,3 +114,17 @@ export const sendSMSNotification = async (userId: string, content: string) => {
         console.log(error)
     }
 }
+
+export const getAppointmentsByUser = async (userId: string) => {
+    try {
+        const appointments = await databases.listDocuments(
+            DATABASE_ID!,
+            APPOINTMENT_COLLECTION_ID!,
+            [Query.equal('userId', userId), Query.orderDesc('$createdAt')]
+        );
+
+        return parseStringify(appointments.documents);
+    } catch (error) {
+        console.log(error);
+    }
+};

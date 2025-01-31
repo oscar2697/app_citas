@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export const LoginFormValidation = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, "Debe tener al menos 8 caracteres"),
+})
+
 export const UserFormValidation = z.object({
     name: z.string()
         .min(2, "Name must be at least 2 characters")

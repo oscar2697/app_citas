@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AppointmentForm from "@/components/forms/AppointmentForm";
 import { getPatient } from "@/lib/actions/patient.actions";
+import AppointmentHistory from "../history/page";
 
 export default async function NewAppointment({ params: { userId } }: SearchParamProps) {
     const patient = await getPatient(userId)
@@ -26,13 +27,9 @@ export default async function NewAppointment({ params: { userId } }: SearchParam
                 </div>
             </section>
 
-            <Image
-                src='/assets/images/appointment-img.png'
-                height={1000}
-                width={1000}
-                alt="appointment"
-                className="side-img max-w-[390px] bg-bottom"
-            />
+            <div className="max-w-[500px]">
+                <AppointmentHistory userId={userId} />
+            </div>
         </div>
     );
 }

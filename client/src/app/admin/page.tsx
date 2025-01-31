@@ -28,10 +28,9 @@ const Admin = () => {
 
         fetchAppointments();
 
-        // Opcional: Configurar un intervalo para actualizar datos cada cierto tiempo
-        const interval = setInterval(fetchAppointments, 5000); // Actualiza cada 5 segundos
+        const interval = setInterval(fetchAppointments, 5000); 
 
-        return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+        return () => clearInterval(interval); 
     }, []);
 
     return (

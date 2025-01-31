@@ -25,7 +25,7 @@ export const createUser = async (user: CreateUserParams) => {
                 const documents = await users.list([
                     Query.equal('email', [user.email])
                 ])
-    
+
                 return documents.users[0]
             }
         }
@@ -92,3 +92,36 @@ export const registerPatient = async ({ identificationDocument, ...patient }: Re
     }
 }
 
+export const loginUser = async ({ email, password }: { email: string, password: string }) => {
+    try {
+        const userList = await users.list([
+            Query.equal('email', [email])
+        ]);
+        const user = userList.users[0];
+
+        if (!user.password) {
+            throw new Error("Error interno: No se puede autenticar.");
+        }
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt)
+        const isPasswordValid = bcrypt.compareSync(password, hashedPassword);
+
+        if (!userList.users || userList.users.length === 0) {
+            throw new Error("Usuario no encontrado");
+        }
+
+        if (!user.password) {
+            throw new Error("Error interno: No se puede autenticar.");
+        }
+
+        if (!isPasswordValid) {
+            throw new Error("Contraseña incorrecta");
+        }
+
+        return parseStringify(user); 
+    } catch (error: any) {
+        console.error("❌ Error en loginUser:", error.message);
+        throw new Error(error.message || "Error al iniciar sesión");
+    }
+};
